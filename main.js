@@ -11,9 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const emailForSends = process.env.email;
 const password = process.env.password;
 
-console.log(emailForSends);
-console.log(password);
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
