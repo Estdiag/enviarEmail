@@ -51,3 +51,10 @@ app.use("/", router);
 app.listen(process.env.PORT, () => {
   console.log("Started on PORT " + process.env.PORT);
 });
+
+app.get("/app/:id", checkUserAuth, findApp, renderView, sendJSON);
+
+function checkUserAuth(req, res, next) {
+  if (req.session.user) return next();
+  return next(new NotAuthorizedError());
+}
