@@ -48,13 +48,14 @@ Email: ${email}`;
 
 app.use("/", router);
 
-app.listen(process.env.PORT, () => {
-  console.log("Started on PORT " + process.env.PORT);
+app.listen(process.env.PORT || 5000, () => {
+  console.log("%s listening ");
+  // eslint-disable-line no-console
 });
 
-app.get("/app/:id", checkUserAuth, findApp, renderView, sendJSON);
+// app.get("/app/:id", checkUserAuth, findApp, renderView, sendJSON);
 
-function checkUserAuth(req, res, next) {
-  if (req.session.user) return next();
-  return next(new NotAuthorizedError());
-}
+// function checkUserAuth(req, res, next) {
+//   if (req.session.user) return next();
+//   return next(new NotAuthorizedError());
+// }
