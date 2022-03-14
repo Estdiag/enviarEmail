@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-// const router = express.Router();
+const router = express.Router();
 const nodemailer = require("nodemailer");
 // Soporte para bodies codificados en jsonsupport.
 app.use(bodyParser.json());
