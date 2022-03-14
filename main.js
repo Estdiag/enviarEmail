@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const router = express.Router();
+// const router = express.Router();
 const nodemailer = require("nodemailer");
 // Soporte para bodies codificados en jsonsupport.
 app.use(bodyParser.json());
@@ -11,13 +11,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const emailForSends = process.env.email;
 const password = process.env.password;
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: emailForSends,
-    pass: password,
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: emailForSends,
+//     pass: password,
+//   },
+// });
 
 let mailOptions = {
   from: emailForSends,
@@ -26,8 +26,15 @@ let mailOptions = {
   text: "",
 };
 
-router.post("/sendEmail", (request, response) => {
-  console.log(request.body);
+app.post("/sendEmail", (req, res) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: emailForSends,
+      pass: password,
+    },
+  });
+
   const email = request.body.email;
   const name = request.body.name;
   const message = request.body.message;
@@ -38,10 +45,11 @@ Email: ${email}`;
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      response.status(500);
+      res.status(500).send(error.message);
       console.log(error);
     } else {
-      response.end();
+      console.log("enviado");
+      res.status(200).json(req.body);
     }
   });
 });
@@ -52,10 +60,3 @@ app.listen(process.env.PORT || 5000, () => {
   console.log("%s listening ");
   // eslint-disable-line no-console
 });
-
-// app.get("/app/:id", checkUserAuth, findApp, renderView, sendJSON);
-
-// function checkUserAuth(req, res, next) {
-//   if (req.session.user) return next();
-//   return next(new NotAuthorizedError());
-// }
