@@ -26,7 +26,7 @@ let mailOptions = {
   text: "",
 };
 
-app.post("/sendEmail", (req, res) => {
+router.post("/sendEmail", (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
