@@ -35,9 +35,9 @@ router.post("/sendEmail", (req, res) => {
     },
   });
 
-  const email = request.body.email;
-  const name = request.body.name;
-  const message = request.body.message;
+  const email = req.body.email;
+  const name = req.body.name;
+  const message = req.body.message;
 
   mailOptions["text"] = `Mensaje: ${message} 
 Nombre: ${name}
