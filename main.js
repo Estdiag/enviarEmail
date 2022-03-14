@@ -49,7 +49,7 @@ Email: ${email}`;
       console.log(error);
     } else {
       console.log("enviado");
-      res.status(200).json(req.body);
+      res.redirect("https://mi-portafolio-topaz.vercel.app/");
     }
   });
 });
